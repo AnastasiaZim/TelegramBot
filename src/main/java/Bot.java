@@ -122,7 +122,7 @@ public class Bot extends TelegramLongPollingBot {
         List<InlineKeyboardButton> keyboardButtonsRow1 = new ArrayList<>();
         List<InlineKeyboardButton> keyboardButtonsRow2 = new ArrayList<>();
         keyboardButtonsRow1.add(inlineKeyboardButton1);
-        keyboardButtonsRow1.add(new InlineKeyboardButton().setText("Какой год?").setCallbackData("На дворе "+Calendar.getInstance().get(Calendar.YEAR)));
+        keyboardButtonsRow1.add(new InlineKeyboardButton().setText("Какой год?").setCallbackData("На дворе " + Calendar.getInstance().get(Calendar.YEAR)));
         keyboardButtonsRow2.add(inlineKeyboardButton2);
         List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
         rowList.add(keyboardButtonsRow1);
