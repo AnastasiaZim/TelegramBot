@@ -10,19 +10,23 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 
 public class Bot extends TelegramLongPollingBot {
-    private Bot(DefaultBotOptions botOptions) {
-        super(botOptions);
+    private Bot() {
+        super(getBotOptions());
+    }
+
+    private static DefaultBotOptions getBotOptions(){
+        DefaultBotOptions botOptions= ApiContext.getInstance(DefaultBotOptions.class);
+        botOptions.setProxyHost("129.146.181.251");
+        botOptions.setProxyPort(3128);
+        botOptions.setProxyType(DefaultBotOptions.ProxyType.HTTP);
+        return botOptions;
     }
 
     public static void main(String[] args) {
         ApiContextInitializer.init();
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
         try {
-            DefaultBotOptions botOptions= ApiContext.getInstance(DefaultBotOptions.class);
-            botOptions.setProxyHost("129.146.181.251");
-            botOptions.setProxyPort(3128);
-            botOptions.setProxyType(DefaultBotOptions.ProxyType.HTTP);
-            telegramBotsApi.registerBot(new Bot(botOptions));
+            telegramBotsApi.registerBot(new Bot());
         } catch (TelegramApiRequestException e) {
             e.printStackTrace();
         }
