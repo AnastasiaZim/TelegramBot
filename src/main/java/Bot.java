@@ -36,7 +36,7 @@ public class Bot extends TelegramLongPollingBot {
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
         sendMessage.setChatId(message.getChatId());
-        sendMessage.setReplyToMessageId(message.getMessageId());
+//        sendMessage.setReplyToMessageId(message.getMessageId());
         sendMessage.setText(text);
         try {
             execute(sendMessage);
@@ -51,6 +51,7 @@ public class Bot extends TelegramLongPollingBot {
             switch (message.getText()) {
                 case "/help":
                     sendMsg(message,"Помогаю");
+                    sendMsg(message,"(нет)");
                     break;
                 case "/lapka":
                     sendMsg(message,"У меня тоже");
