@@ -1,5 +1,7 @@
 import org.telegram.telegrambots.ApiContextInitializer;
+import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.ApiContext;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -8,12 +10,19 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 
 public class Bot extends TelegramLongPollingBot {
+    private Bot(DefaultBotOptions botOptions) {
+        super(botOptions);
+    }
+
     public static void main(String[] args) {
-        org.apache.log4j.BasicConfigurator.configure();
         ApiContextInitializer.init();
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
         try {
-            telegramBotsApi.registerBot(new Bot());
+            DefaultBotOptions botOptions= ApiContext.getInstance(DefaultBotOptions.class);
+            botOptions.setProxyHost("129.146.181.251");
+            botOptions.setProxyPort(3128);
+            botOptions.setProxyType(DefaultBotOptions.ProxyType.HTTP);
+            telegramBotsApi.registerBot(new Bot(botOptions));
         } catch (TelegramApiRequestException e) {
             e.printStackTrace();
         }
